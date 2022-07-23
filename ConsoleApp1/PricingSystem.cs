@@ -1,0 +1,38 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace VendingMachineProject
+{
+ public class PricingSystem
+    {
+        public decimal balance = 0;
+        public decimal change = 0;
+        public decimal totalAmount = 0;
+        public bool transactionComplete = false;
+
+        public void insertCoins(decimal amount, decimal priceOfItem)
+        {
+            balance+=amount;
+            checkPurchace(balance, priceOfItem);
+        }
+        
+        public void checkPurchace(decimal currentBalance, decimal priceOfItem)
+        {
+            if (currentBalance >= priceOfItem)
+            {
+                change = currentBalance - priceOfItem;
+                Console.WriteLine($"***Thank you for your custom, change due ---> £{change}***" 
+                + Environment.NewLine + "Please take your items:-");
+                Printer.vendRequestedItems();
+                transactionComplete = true;
+            }
+            else
+            {
+                Console.WriteLine($"Remainder to pay ---> £{priceOfItem-balance} more!");
+            }
+        }
+    }
+}
